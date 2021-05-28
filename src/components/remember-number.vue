@@ -8,23 +8,22 @@ div
     h2 Setup
 
     div.length
-      div Length: {{ length }}
+      div Length: {{ length.value }}
       input(
         type="range"
-        min="2"
-        max="5"
-        step="1"
-        v-model="length"
+        :min="length.min"
+        :max="length.max"
+        v-model="length.value"
       )
 
     div.showTime
-      div Show time: {{ showTime }}
+      div Show time: {{ showTime.value }}
       input(
         type="range"
-        min="0.2"
-        max="2"
-        step="0.1"
-        v-model="showTime"
+        :min="showTime.min"
+        :max="showTime.max"
+        :step="showTime.step"
+        v-model="showTime.value"
       )
 
     button(
@@ -61,8 +60,8 @@ div
 
     div.fail(
       v-show="isFail"
-    ) Fail
-      h2 Success
+    )
+      h2 Fail
 
     button(
       @click="reset"
@@ -76,7 +75,20 @@ import useRememberNumber from '@/composables/remember-number.js';
 export default {
   name: 'RememberNumber',
   setup() {
-    const { StateEnum, state, number, show, enter, reset, length, showTime, input } = useRememberNumber();
+    const {
+      StateEnum,
+      state,
+      number,
+      show,
+      enter,
+      reset,
+      length,
+      showTime,
+      input,
+    } = useRememberNumber({
+      lengthOpt: { min: 2, max: 5 },
+      showTimeOpt: { min: 0.2, max: 2, step: 0.1 },
+    });
 
     const isSetup = computed(() => state.value == StateEnum.Setup);
     const isShow = computed(() => state.value == StateEnum.Show);
@@ -84,9 +96,6 @@ export default {
     const isSuccess = computed(() => state.value == StateEnum.Success);
     const isFail = computed(() => state.value == StateEnum.Fail);
     const isFinished = computed(() => isSuccess.value || isFail.value);
-
-    length.value = 2;
-    showTime.value = 0.2;
     
     return {
       isSetup,
