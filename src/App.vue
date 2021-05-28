@@ -1,20 +1,19 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template lang="pug">
+RememberNumber
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import RememberNumber from '@/components/remember-number.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    RememberNumber,
+  },
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
